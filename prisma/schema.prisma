@@ -21,12 +21,12 @@ model User {
 
 model Profile {
   id           String   @id @default(uuid())
-  name         String
-  iconImageUrl String
-  description  String
-  twitterUrl   String
-  instagramUrl String
-  websiteUrl   String
+  name         String?
+  iconImageUrl String?
+  description  String?
+  twitterUrl   String?
+  instagramUrl String?
+  websiteUrl   String?
   userId       String   @unique
   user         User     @relation(fields: [userId], references: [id])
   createdAt    DateTime @default(now())
@@ -35,9 +35,9 @@ model Profile {
 
 model Denim {
   id           String        @id @default(uuid())
-  name         String
-  description  String
-  imageUrl     String
+  name         String?
+  description  String?
+  imageUrl     String?
   user         User          @relation(fields: [userId], references: [id])
   userId       String
   denimReports DenimReport[]
@@ -47,8 +47,8 @@ model Denim {
 
 model DenimReport {
   id             String   @id @default(uuid())
-  title          String
-  description    String
+  title          String?
+  description    String?
   frontImageUrl  String?
   backImageUrl   String?
   detailImageUrl String[]

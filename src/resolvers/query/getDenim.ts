@@ -1,19 +1,19 @@
 import { prisma } from '../../../src/lib/prisma';
 import { QueryResolvers } from '../../types/generated/graphql';
 
-export const getUser: QueryResolvers['getUser'] = async (
+export const getDenim: QueryResolvers['getDenim'] = async (
   parent,
   args,
   context,
   info
 ) => {
-  const user = await prisma.user.findUnique({
+  const denim = await prisma.denim.findUnique({
     where: {
-      id: context.user?.id,
+      id: args.id,
     },
   });
-  if (!user) {
+  if (!denim) {
     throw new Error('Not Found Error.');
   }
-  return user;
+  return denim;
 };

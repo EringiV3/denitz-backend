@@ -1,7 +1,7 @@
 import { prisma } from '../../../src/lib/prisma';
 import { QueryResolvers } from '../../types/generated/graphql';
 
-export const getUser: QueryResolvers['getUser'] = async (
+export const getProfile: QueryResolvers['getProfile'] = async (
   parent,
   args,
   context,
@@ -9,11 +9,16 @@ export const getUser: QueryResolvers['getUser'] = async (
 ) => {
   const user = await prisma.user.findUnique({
     where: {
-      id: context.user?.id,
+      accountId: args.accountId,
     },
   });
-  if (!user) {
+  const profile = await prisma.profile.findUnique({
+    where: {
+      userId: user?.id,
+    },
+  });
+  if (!profile) {
     throw new Error('Not Found Error.');
   }
-  return user;
+  return profile;
 };

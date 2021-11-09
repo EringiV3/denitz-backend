@@ -1,7 +1,7 @@
 import { prisma } from '../../lib/prisma';
 import { MutationResolvers } from '../../types/generated/graphql';
 
-export const deleteTodo: MutationResolvers['deleteTodo'] = async (
+export const deleteDenimReport: MutationResolvers['deleteDenimReport'] = async (
   parent,
   args,
   context,
@@ -12,27 +12,30 @@ export const deleteTodo: MutationResolvers['deleteTodo'] = async (
     throw new Error('Authentication Error.');
   }
 
-  const targetTodo = await prisma.todo.findUnique({
-    where: {
-      id: args.id,
-    },
-  });
-
-  if (!targetTodo) {
-    throw new Error('Not Found Todo.');
-  }
-
-  if (targetTodo.userId !== userId) {
-    throw new Error('Authorization Error.');
-  }
-
-  const todo = await prisma.todo.delete({
+  const targetDenimReport = await prisma.denimReport.findUnique({
     where: {
       id: args.id,
     },
     include: {
-      user: true,
+      denim: true,
     },
   });
-  return todo;
+
+  if (!targetDenimReport) {
+    throw new Error('Not Found Todo.');
+  }
+
+  if (targetDenimReport.denim.userId !== userId) {
+    throw new Error('Authorization Error.');
+  }
+
+  const denimReport = await prisma.denimReport.delete({
+    where: {
+      id: args.id,
+    },
+    include: {
+      denim: true,
+    },
+  });
+  return denimReport;
 };

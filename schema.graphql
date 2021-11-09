@@ -9,30 +9,32 @@ type Mutation {
   createUser(input: UserInput!): User!
   updateUser(id: String!, input: UserInput!): User!
   createS3SignedUrl: String!
+  createProfile(input: ProfileInput!): Profile!
   updateProfile(id: String!, input: ProfileInput!): Profile!
   createDenim(input: DenimInput!): Denim!
   updateDenim(id: String!, input: DenimInput!): Denim!
   deleteDenim(id: String!): Denim!
-  createDenimReport(input: DenimReportInput): DenimReport!
-  updateDenimReport(id: String!, inpu: DenimReportInput): DenimReport!
+  createDenimReport(input: DenimReportInput!): DenimReport!
+  updateDenimReport(id: String!, input: DenimReportInput!): DenimReport!
   deleteDenimReport(id: String!): DenimReport!
 }
 
-type DenimReportInput {
+input DenimReportInput {
+  denimId: String!
   title: String
   description: String
   frontImageUrl: String
   backImageUrl: String
-  detailImageUrl: [String]
+  detailImageUrl: [String!]!
 }
 
-type DenimInput {
+input DenimInput {
   name: String
   description: String
   imageUrl: String
 }
 
-type ProfileInput {
+input ProfileInput {
   name: String
   iconImageUrl: String
   description: String
@@ -48,10 +50,10 @@ input UserInput {
 type User {
   id: String!
   accountId: String!
-  profile: Profile!
-  denim: [Denim!]!
-  createdAt: String!
-  updatedAt: String
+  profile: Profile
+  denim: [Denim]
+  createdAt: Date
+  updatedAt: Date
 }
 
 type Profile {
@@ -62,9 +64,9 @@ type Profile {
   twitterUrl: String
   instagramUrl: String
   websiteUrl: String
-  user: User!
-  createdAt: String!
-  updatedAt: String
+  user: User
+  createdAt: Date
+  updatedAt: Date
 }
 
 type Denim {
@@ -72,22 +74,22 @@ type Denim {
   name: String
   description: String
   imageUrl: String
-  user: User!
-  denimReports: [DenimReport!]!
-  createdAt: String!
-  updatedAt: String
+  user: User
+  denimReports: [DenimReport]
+  createdAt: Date
+  updatedAt: Date
 }
 
 type DenimReport {
   id: String!
-  title: String!
+  title: String
   description: String
   frontImageUrl: String
   backImageUrl: String
-  detailImageUrl: [String]!
-  denim: Denim!
-  createdAt: String!
-  updatedAt: String
+  detailImageUrl: [String]
+  denim: Denim
+  createdAt: Date
+  updatedAt: Date
 }
 
 scalar Date

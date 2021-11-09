@@ -38,8 +38,10 @@ const server = new ApolloServer({
           token,
           (header, cb) => {
             client.getSigningKey(header.kid, function (err, key) {
-              const signingKey = key.getPublicKey();
-              cb(null, signingKey);
+              if (key) {
+                const signingKey = key.getPublicKey();
+                cb(null, signingKey);
+              }
             });
           },
           {
