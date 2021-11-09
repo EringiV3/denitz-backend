@@ -15,39 +15,64 @@ export type Scalars = {
   Date: any;
 };
 
-export type AddTodoInput = {
-  title: Scalars['String'];
+
+export type Denim = {
+  __typename?: 'Denim';
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  imageUrl?: Maybe<Scalars['String']>;
+  user: User;
+  denimReports: Array<DenimReport>;
+  createdAt: Scalars['String'];
+  updatedAt?: Maybe<Scalars['String']>;
 };
 
+export type DenimInput = {
+  __typename?: 'DenimInput';
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  imageUrl?: Maybe<Scalars['String']>;
+};
+
+export type DenimReport = {
+  __typename?: 'DenimReport';
+  id: Scalars['String'];
+  title: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  frontImageUrl?: Maybe<Scalars['String']>;
+  backImageUrl?: Maybe<Scalars['String']>;
+  detailImageUrl: Array<Maybe<Scalars['String']>>;
+  denim: Denim;
+  createdAt: Scalars['String'];
+  updatedAt?: Maybe<Scalars['String']>;
+};
+
+export type DenimReportInput = {
+  __typename?: 'DenimReportInput';
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  frontImageUrl?: Maybe<Scalars['String']>;
+  backImageUrl?: Maybe<Scalars['String']>;
+  detailImageUrl?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addTodo?: Maybe<Todo>;
-  updateTodo?: Maybe<Todo>;
-  deleteTodo?: Maybe<Todo>;
-  createUser?: Maybe<User>;
-  updateUser?: Maybe<User>;
-};
-
-
-export type MutationAddTodoArgs = {
-  input: AddTodoInput;
-};
-
-
-export type MutationUpdateTodoArgs = {
-  id: Scalars['Int'];
-  input: UpdateTodoInput;
-};
-
-
-export type MutationDeleteTodoArgs = {
-  id: Scalars['Int'];
+  createUser: User;
+  updateUser: User;
+  createS3SignedUrl: Scalars['String'];
+  updateProfile: Profile;
+  createDenim: Denim;
+  updateDenim: Denim;
+  deleteDenim: Denim;
+  createDenimReport: DenimReport;
+  updateDenimReport: DenimReport;
+  deleteDenimReport: DenimReport;
 };
 
 
 export type MutationCreateUserArgs = {
-  id: Scalars['String'];
   input: UserInput;
 };
 
@@ -57,47 +82,103 @@ export type MutationUpdateUserArgs = {
   input: UserInput;
 };
 
+
+export type MutationUpdateProfileArgs = {
+  id: Scalars['String'];
+  input: ProfileInput;
+};
+
+
+export type MutationCreateDenimArgs = {
+  input: DenimInput;
+};
+
+
+export type MutationUpdateDenimArgs = {
+  id: Scalars['String'];
+  input: DenimInput;
+};
+
+
+export type MutationDeleteDenimArgs = {
+  id: Scalars['String'];
+};
+
+
+export type MutationCreateDenimReportArgs = {
+  input?: Maybe<DenimReportInput>;
+};
+
+
+export type MutationUpdateDenimReportArgs = {
+  id: Scalars['String'];
+  inpu?: Maybe<DenimReportInput>;
+};
+
+
+export type MutationDeleteDenimReportArgs = {
+  id: Scalars['String'];
+};
+
+export type Profile = {
+  __typename?: 'Profile';
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  iconImageUrl?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  twitterUrl?: Maybe<Scalars['String']>;
+  instagramUrl?: Maybe<Scalars['String']>;
+  websiteUrl?: Maybe<Scalars['String']>;
+  user: User;
+  createdAt: Scalars['String'];
+  updatedAt?: Maybe<Scalars['String']>;
+};
+
+export type ProfileInput = {
+  __typename?: 'ProfileInput';
+  name?: Maybe<Scalars['String']>;
+  iconImageUrl?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  twitterUrl?: Maybe<Scalars['String']>;
+  instagramUrl?: Maybe<Scalars['String']>;
+  websiteUrl?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
   __typename?: 'Query';
-  getUser?: Maybe<User>;
-  getTodos: Array<Todo>;
-  getTodoById?: Maybe<Todo>;
+  getUser: User;
+  getProfile: Profile;
+  getDenim: Denim;
+  getDenimReport: DenimReport;
 };
 
 
-export type QueryGetTodoByIdArgs = {
-  id: Scalars['Int'];
+export type QueryGetProfileArgs = {
+  accountId: Scalars['String'];
 };
 
-export type Todo = {
-  __typename?: 'Todo';
-  id: Scalars['Int'];
-  createdAt?: Maybe<Scalars['Date']>;
-  updatedAt?: Maybe<Scalars['Date']>;
-  title: Scalars['String'];
-  status: TodoStatus;
-  user?: Maybe<User>;
-  userId: Scalars['String'];
+
+export type QueryGetDenimArgs = {
+  id: Scalars['String'];
 };
 
-export type TodoStatus =
-  | 'done'
-  | 'pending';
 
-export type UpdateTodoInput = {
-  title: Scalars['String'];
-  status: TodoStatus;
+export type QueryGetDenimReportArgs = {
+  id: Scalars['String'];
 };
 
 export type User = {
   __typename?: 'User';
-  id?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  todos?: Maybe<Array<Maybe<Todo>>>;
+  id: Scalars['String'];
+  accountId: Scalars['String'];
+  profile: Profile;
+  denim: Array<Denim>;
+  createdAt: Scalars['String'];
+  updatedAt?: Maybe<Scalars['String']>;
 };
 
 export type UserInput = {
-  name: Scalars['String'];
+  accountId: Scalars['String'];
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -184,15 +265,16 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  AddTodoInput: AddTodoInput;
-  String: ResolverTypeWrapper<Scalars['String']>;
   Date: ResolverTypeWrapper<Scalars['Date']>;
+  Denim: ResolverTypeWrapper<Denim>;
+  String: ResolverTypeWrapper<Scalars['String']>;
+  DenimInput: ResolverTypeWrapper<DenimInput>;
+  DenimReport: ResolverTypeWrapper<DenimReport>;
+  DenimReportInput: ResolverTypeWrapper<DenimReportInput>;
   Mutation: ResolverTypeWrapper<{}>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
+  Profile: ResolverTypeWrapper<Profile>;
+  ProfileInput: ResolverTypeWrapper<ProfileInput>;
   Query: ResolverTypeWrapper<{}>;
-  Todo: ResolverTypeWrapper<Todo>;
-  TodoStatus: TodoStatus;
-  UpdateTodoInput: UpdateTodoInput;
   User: ResolverTypeWrapper<User>;
   UserInput: UserInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -200,14 +282,16 @@ export type ResolversTypes = ResolversObject<{
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
-  AddTodoInput: AddTodoInput;
-  String: Scalars['String'];
   Date: Scalars['Date'];
+  Denim: Denim;
+  String: Scalars['String'];
+  DenimInput: DenimInput;
+  DenimReport: DenimReport;
+  DenimReportInput: DenimReportInput;
   Mutation: {};
-  Int: Scalars['Int'];
+  Profile: Profile;
+  ProfileInput: ProfileInput;
   Query: {};
-  Todo: Todo;
-  UpdateTodoInput: UpdateTodoInput;
   User: User;
   UserInput: UserInput;
   Boolean: Scalars['Boolean'];
@@ -217,43 +301,111 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
   name: 'Date';
 }
 
-export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  addTodo?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType, RequireFields<MutationAddTodoArgs, 'input'>>;
-  updateTodo?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType, RequireFields<MutationUpdateTodoArgs, 'id' | 'input'>>;
-  deleteTodo?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType, RequireFields<MutationDeleteTodoArgs, 'id'>>;
-  createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'id' | 'input'>>;
-  updateUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'id' | 'input'>>;
-}>;
-
-export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  getUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-  getTodos?: Resolver<Array<ResolversTypes['Todo']>, ParentType, ContextType>;
-  getTodoById?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType, RequireFields<QueryGetTodoByIdArgs, 'id'>>;
-}>;
-
-export type TodoResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Todo'] = ResolversParentTypes['Todo']> = ResolversObject<{
-  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
-  updatedAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
-  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  status?: Resolver<ResolversTypes['TodoStatus'], ParentType, ContextType>;
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-  userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+export type DenimResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Denim'] = ResolversParentTypes['Denim']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  imageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  denimReports?: Resolver<Array<ResolversTypes['DenimReport']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+export type DenimInputResolvers<ContextType = Context, ParentType extends ResolversParentTypes['DenimInput'] = ResolversParentTypes['DenimInput']> = ResolversObject<{
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  todos?: Resolver<Maybe<Array<Maybe<ResolversTypes['Todo']>>>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  imageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type DenimReportResolvers<ContextType = Context, ParentType extends ResolversParentTypes['DenimReport'] = ResolversParentTypes['DenimReport']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  frontImageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  backImageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  detailImageUrl?: Resolver<Array<Maybe<ResolversTypes['String']>>, ParentType, ContextType>;
+  denim?: Resolver<ResolversTypes['Denim'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type DenimReportInputResolvers<ContextType = Context, ParentType extends ResolversParentTypes['DenimReportInput'] = ResolversParentTypes['DenimReportInput']> = ResolversObject<{
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  frontImageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  backImageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  detailImageUrl?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
+  updateUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'id' | 'input'>>;
+  createS3SignedUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updateProfile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType, RequireFields<MutationUpdateProfileArgs, 'id' | 'input'>>;
+  createDenim?: Resolver<ResolversTypes['Denim'], ParentType, ContextType, RequireFields<MutationCreateDenimArgs, 'input'>>;
+  updateDenim?: Resolver<ResolversTypes['Denim'], ParentType, ContextType, RequireFields<MutationUpdateDenimArgs, 'id' | 'input'>>;
+  deleteDenim?: Resolver<ResolversTypes['Denim'], ParentType, ContextType, RequireFields<MutationDeleteDenimArgs, 'id'>>;
+  createDenimReport?: Resolver<ResolversTypes['DenimReport'], ParentType, ContextType, RequireFields<MutationCreateDenimReportArgs, never>>;
+  updateDenimReport?: Resolver<ResolversTypes['DenimReport'], ParentType, ContextType, RequireFields<MutationUpdateDenimReportArgs, 'id'>>;
+  deleteDenimReport?: Resolver<ResolversTypes['DenimReport'], ParentType, ContextType, RequireFields<MutationDeleteDenimReportArgs, 'id'>>;
+}>;
+
+export type ProfileResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Profile'] = ResolversParentTypes['Profile']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  iconImageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  twitterUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  instagramUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  websiteUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ProfileInputResolvers<ContextType = Context, ParentType extends ResolversParentTypes['ProfileInput'] = ResolversParentTypes['ProfileInput']> = ResolversObject<{
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  iconImageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  twitterUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  instagramUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  websiteUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  getUser?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  getProfile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType, RequireFields<QueryGetProfileArgs, 'accountId'>>;
+  getDenim?: Resolver<ResolversTypes['Denim'], ParentType, ContextType, RequireFields<QueryGetDenimArgs, 'id'>>;
+  getDenimReport?: Resolver<ResolversTypes['DenimReport'], ParentType, ContextType, RequireFields<QueryGetDenimReportArgs, 'id'>>;
+}>;
+
+export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  accountId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  profile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType>;
+  denim?: Resolver<Array<ResolversTypes['Denim']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = Context> = ResolversObject<{
   Date?: GraphQLScalarType;
+  Denim?: DenimResolvers<ContextType>;
+  DenimInput?: DenimInputResolvers<ContextType>;
+  DenimReport?: DenimReportResolvers<ContextType>;
+  DenimReportInput?: DenimReportInputResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  Profile?: ProfileResolvers<ContextType>;
+  ProfileInput?: ProfileInputResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  Todo?: TodoResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 }>;
 
