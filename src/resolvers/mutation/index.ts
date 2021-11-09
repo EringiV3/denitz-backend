@@ -1,5 +1,10 @@
-export { addTodo } from './addTodo';
+export { createDenim } from './createDenim';
+export { createDenimReport } from './createDenimReport';
+export { createProfile } from './createProfile';
 export { createUser } from './createUser';
-export { deleteTodo } from './deleteTodo';
-export { updateTodo } from './updateTodo';
+export { deleteDenim } from './deleteDenim';
+export { deleteDenimReport } from './deleteDenimReport';
+export { updateDenim } from './updateDenim';
+export { updateDenimReport } from './updateDenimReport';
+export { updateProfile } from './updateProfile';
 export { updateUser } from './updateUser';

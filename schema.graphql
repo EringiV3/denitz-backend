@@ -1,49 +1,95 @@
 type Query {
-  getUser: User
-  getTodos: [Todo!]!
-  getTodoById(id: Int!): Todo
+  getUser: User!
+  getProfile(accountId: String!): Profile!
+  getDenim(id: String!): Denim!
+  getDenimReport(id: String!): DenimReport!
 }
 
 type Mutation {
-  addTodo(input: AddTodoInput!): Todo
-  updateTodo(id: Int!, input: UpdateTodoInput!): Todo
-  deleteTodo(id: Int!): Todo
-  createUser(id: String!, input: UserInput!): User
-  updateUser(id: String!, input: UserInput!): User
+  createUser(input: UserInput!): User!
+  updateUser(id: String!, input: UserInput!): User!
+  createS3SignedUrl: String!
+  createProfile(input: ProfileInput!): Profile!
+  updateProfile(id: String!, input: ProfileInput!): Profile!
+  createDenim(input: DenimInput!): Denim!
+  updateDenim(id: String!, input: DenimInput!): Denim!
+  deleteDenim(id: String!): Denim!
+  createDenimReport(input: DenimReportInput!): DenimReport!
+  updateDenimReport(id: String!, input: DenimReportInput!): DenimReport!
+  deleteDenimReport(id: String!): DenimReport!
 }
 
-input AddTodoInput {
-  title: String!
+input DenimReportInput {
+  denimId: String!
+  title: String
+  description: String
+  frontImageUrl: String
+  backImageUrl: String
+  detailImageUrl: [String!]!
 }
 
-input UpdateTodoInput {
-  title: String!
-  status: TodoStatus!
+input DenimInput {
+  name: String
+  description: String
+  imageUrl: String
+}
+
+input ProfileInput {
+  name: String
+  iconImageUrl: String
+  description: String
+  twitterUrl: String
+  instagramUrl: String
+  websiteUrl: String
 }
 
 input UserInput {
-  name: String!
-}
-
-enum TodoStatus {
-  done
-  pending
-}
-
-type Todo {
-  id: Int!
-  createdAt: Date
-  updatedAt: Date
-  title: String!
-  status: TodoStatus!
-  user: User
-  userId: String!
+  accountId: String!
 }
 
 type User {
-  id: String
+  id: String!
+  accountId: String!
+  profile: Profile
+  denim: [Denim]
+  createdAt: Date
+  updatedAt: Date
+}
+
+type Profile {
+  id: String!
   name: String
-  todos: [Todo]
+  iconImageUrl: String
+  description: String
+  twitterUrl: String
+  instagramUrl: String
+  websiteUrl: String
+  user: User
+  createdAt: Date
+  updatedAt: Date
+}
+
+type Denim {
+  id: String!
+  name: String
+  description: String
+  imageUrl: String
+  user: User
+  denimReports: [DenimReport]
+  createdAt: Date
+  updatedAt: Date
+}
+
+type DenimReport {
+  id: String!
+  title: String
+  description: String
+  frontImageUrl: String
+  backImageUrl: String
+  detailImageUrl: [String]
+  denim: Denim
+  createdAt: Date
+  updatedAt: Date
 }
 
 scalar Date

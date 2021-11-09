@@ -18,16 +18,13 @@ export const createUser: MutationResolvers['createUser'] = async (
     },
   });
 
-  console.log({ user });
-
   if (user) {
     throw new Error('Alredy exists user.');
   }
 
   const createdUser = await prisma.user.create({
     data: {
-      id: userId,
-      name: args.input.name,
+      accountId: args.input.accountId,
     },
   });
   return createdUser;

@@ -10,23 +10,50 @@ generator client {
   provider = "prisma-client-js"
 }
 
-enum TodoStatus {
-  done
-  pending
-}
-
-model Todo {
-  id        Int        @id @default(autoincrement())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  title     String     @db.VarChar(255)
-  status    TodoStatus @default(pending)
-  user      User       @relation(fields: [userId], references: [id])
-  userId    String
-}
-
 model User {
-  id    String  @id @unique
-  name  String?
-  todos Todo[]
+  id        String   @id @default(uuid())
+  accountId String   @unique
+  profile   Profile?
+  denims    Denim[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Profile {
+  id           String   @id @default(uuid())
+  name         String?
+  iconImageUrl String?
+  description  String?
+  twitterUrl   String?
+  instagramUrl String?
+  websiteUrl   String?
+  userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Denim {
+  id           String        @id @default(uuid())
+  name         String?
+  description  String?
+  imageUrl     String?
+  user         User          @relation(fields: [userId], references: [id])
+  userId       String
+  denimReports DenimReport[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model DenimReport {
+  id             String   @id @default(uuid())
+  title          String?
+  description    String?
+  frontImageUrl  String?
+  backImageUrl   String?
+  detailImageUrl String[]
+  denim          Denim    @relation(fields: [denimId], references: [id])
+  denimId        String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }

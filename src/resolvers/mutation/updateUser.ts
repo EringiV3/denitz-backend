@@ -27,7 +27,7 @@ export const updateUser: MutationResolvers['updateUser'] = async (
       id: userId,
     },
     data: {
-      name: args.input.name,
+      accountId: args.input.accountId,
     },
   });
   return updatedUser;
