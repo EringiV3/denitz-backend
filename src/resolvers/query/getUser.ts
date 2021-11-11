@@ -13,7 +13,7 @@ export const getUser: QueryResolvers['getUser'] = async (
     },
   });
   if (!user) {
-    throw new Error('Not Found Error.');
+    return null;
   }
   return user;
 };

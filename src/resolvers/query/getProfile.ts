@@ -12,9 +12,15 @@ export const getProfile: QueryResolvers['getProfile'] = async (
       accountId: args.accountId,
     },
   });
+  if (user === null) {
+    throw new Error('Not Found Error.');
+  }
   const profile = await prisma.profile.findUnique({
     where: {
-      userId: user?.id,
+      userId: user.id,
+    },
+    include: {
+      user: true,
     },
   });
   if (!profile) {

@@ -24,6 +24,7 @@ export const createUser: MutationResolvers['createUser'] = async (
 
   const createdUser = await prisma.user.create({
     data: {
+      id: userId,
       accountId: args.input.accountId,
     },
   });

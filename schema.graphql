@@ -1,5 +1,5 @@
 type Query {
-  getUser: User!
+  getUser: User
   getProfile(accountId: String!): Profile!
   getDenim(id: String!): Denim!
   getDenimReport(id: String!): DenimReport!
