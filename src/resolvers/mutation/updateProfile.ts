@@ -14,17 +14,22 @@ export const updateProfile: MutationResolvers['updateProfile'] = async (
 
   const profile = await prisma.profile.findUnique({
     where: {
-      userId: userId,
+      id: args.id,
     },
+    include: { user: true },
   });
 
   if (!profile) {
     throw new Error('Not Found Error.');
   }
 
+  if (profile.user.id !== userId) {
+    throw new Error('Authorization Error.');
+  }
+
   const updatedProfile = await prisma.profile.update({
     where: {
-      id: userId,
+      id: args.id,
     },
     data: {
       name: args.input.name,

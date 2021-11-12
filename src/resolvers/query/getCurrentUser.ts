@@ -11,6 +11,9 @@ export const getCurrentUser: QueryResolvers['getCurrentUser'] = async (
     where: {
       id: context.user?.id,
     },
+    include: {
+      profile: true,
+    },
   });
   if (!user) {
     return null;
