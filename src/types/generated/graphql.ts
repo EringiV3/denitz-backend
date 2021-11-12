@@ -150,7 +150,7 @@ export type ProfileInput = {
 
 export type Query = {
   __typename?: 'Query';
-  getUser?: Maybe<User>;
+  getCurrentUser?: Maybe<User>;
   getProfile: Profile;
   getDenim: Denim;
   getDenimReport: DenimReport;
@@ -359,7 +359,7 @@ export type ProfileResolvers<ContextType = Context, ParentType extends Resolvers
 }>;
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  getUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  getCurrentUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   getProfile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType, RequireFields<QueryGetProfileArgs, 'accountId'>>;
   getDenim?: Resolver<ResolversTypes['Denim'], ParentType, ContextType, RequireFields<QueryGetDenimArgs, 'id'>>;
   getDenimReport?: Resolver<ResolversTypes['DenimReport'], ParentType, ContextType, RequireFields<QueryGetDenimReportArgs, 'id'>>;
