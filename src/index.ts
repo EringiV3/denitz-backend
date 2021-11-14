@@ -14,7 +14,7 @@ import {
 import resolvers from './resolvers';
 import { Context } from './types/context';
 
-const schema = loadSchemaSync(join(__dirname, '../schema.graphql'), {
+const schema = loadSchemaSync(join(__dirname, './schema.graphql'), {
   loaders: [new GraphQLFileLoader()],
 });
 const schemaWithResolvers = addResolversToSchema({ schema, resolvers });
