@@ -125,8 +125,8 @@ export type Profile = {
   name?: Maybe<Scalars['String']>;
   iconImageUrl?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
-  twitterUrl?: Maybe<Scalars['String']>;
-  instagramUrl?: Maybe<Scalars['String']>;
+  twitterUserName?: Maybe<Scalars['String']>;
+  instagramUserName?: Maybe<Scalars['String']>;
   websiteUrl?: Maybe<Scalars['String']>;
   user?: Maybe<User>;
   createdAt?: Maybe<Scalars['Date']>;
@@ -137,8 +137,8 @@ export type ProfileInput = {
   name?: Maybe<Scalars['String']>;
   iconImageUrl?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
-  twitterUrl?: Maybe<Scalars['String']>;
-  instagramUrl?: Maybe<Scalars['String']>;
+  twitterUserName?: Maybe<Scalars['String']>;
+  instagramUserName?: Maybe<Scalars['String']>;
   websiteUrl?: Maybe<Scalars['String']>;
 };
 
@@ -356,8 +356,8 @@ export type ProfileResolvers<ContextType = Context, ParentType extends Resolvers
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   iconImageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  twitterUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  instagramUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  twitterUserName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  instagramUserName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   websiteUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
