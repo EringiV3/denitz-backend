@@ -1,7 +1,8 @@
+import { v4 as uuidv4 } from 'uuid';
 import { prisma } from '../../lib/prisma';
 import { MutationResolvers } from '../../types/generated/graphql';
 
-export const createUser: MutationResolvers['createUser'] = async (
+export const createUserAccount: MutationResolvers['createUserAccount'] = async (
   parent,
   args,
   context,
@@ -22,10 +23,14 @@ export const createUser: MutationResolvers['createUser'] = async (
     throw new Error('Alredy exists user.');
   }
 
+  // 空のプロフィールと一緒にユーザーアカウントを作成
   const createdUser = await prisma.user.create({
     data: {
       id: userId,
-      accountId: args.input.accountId,
+      accountId: uuidv4(),
+      profile: {
+        create: {},
+      },
     },
   });
   return createdUser;
