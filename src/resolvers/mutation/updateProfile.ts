@@ -35,8 +35,8 @@ export const updateProfile: MutationResolvers['updateProfile'] = async (
       name: args.input.name,
       iconImageUrl: args.input.iconImageUrl,
       description: args.input.description,
-      twitterUrl: args.input.twitterUrl,
-      instagramUrl: args.input.instagramUrl,
+      twitterUserName: args.input.twitterUserName,
+      instagramUserName: args.input.instagramUserName,
       websiteUrl: args.input.websiteUrl,
     },
     include: {

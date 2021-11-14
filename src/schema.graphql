@@ -41,8 +41,8 @@ input ProfileInput {
   name: String
   iconImageUrl: String
   description: String
-  twitterUrl: String
-  instagramUrl: String
+  twitterUserName: String
+  instagramUserName: String
   websiteUrl: String
 }
 
@@ -64,8 +64,8 @@ type Profile {
   name: String
   iconImageUrl: String
   description: String
-  twitterUrl: String
-  instagramUrl: String
+  twitterUserName: String
+  instagramUserName: String
   websiteUrl: String
   user: User
   createdAt: Date
