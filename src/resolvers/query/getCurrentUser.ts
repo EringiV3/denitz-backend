@@ -1,7 +1,7 @@
-import { prisma } from '../../../src/lib/prisma';
+import { prisma } from '../../lib/prisma';
 import { QueryResolvers } from '../../types/generated/graphql';
 
-export const getUser: QueryResolvers['getUser'] = async (
+export const getCurrentUser: QueryResolvers['getCurrentUser'] = async (
   parent,
   args,
   context,
@@ -11,9 +11,12 @@ export const getUser: QueryResolvers['getUser'] = async (
     where: {
       id: context.user?.id,
     },
+    include: {
+      profile: true,
+    },
   });
   if (!user) {
-    throw new Error('Not Found Error.');
+    return null;
   }
   return user;
 };

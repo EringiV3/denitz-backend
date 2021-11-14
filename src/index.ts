@@ -74,6 +74,7 @@ const server = new ApolloServer({
         },
       } as Context;
     } catch (error) {
+      console.log({ error });
       return {
         user: undefined,
       };

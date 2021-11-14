@@ -60,6 +60,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   createUser: User;
   updateUser: User;
+  createS3SignedUrl: S3SignedUrlResponse;
   createProfile: Profile;
   updateProfile: Profile;
   createDenim: Denim;
@@ -79,6 +80,11 @@ export type MutationCreateUserArgs = {
 export type MutationUpdateUserArgs = {
   id: Scalars['String'];
   input: UserInput;
+};
+
+
+export type MutationCreateS3SignedUrlArgs = {
+  input: S3SignedUrlInput;
 };
 
 
@@ -149,7 +155,7 @@ export type ProfileInput = {
 
 export type Query = {
   __typename?: 'Query';
-  getUser: User;
+  getCurrentUser?: Maybe<User>;
   getProfile: Profile;
   getDenim: Denim;
   getDenimReport: DenimReport;
@@ -168,6 +174,16 @@ export type QueryGetDenimArgs = {
 
 export type QueryGetDenimReportArgs = {
   id: Scalars['String'];
+};
+
+export type S3SignedUrlInput = {
+  contentType: Scalars['String'];
+};
+
+export type S3SignedUrlResponse = {
+  __typename?: 'S3SignedUrlResponse';
+  fileName: Scalars['String'];
+  signedUrl: Scalars['String'];
 };
 
 export type User = {
@@ -278,6 +294,8 @@ export type ResolversTypes = ResolversObject<{
   Profile: ResolverTypeWrapper<Profile>;
   ProfileInput: ProfileInput;
   Query: ResolverTypeWrapper<{}>;
+  S3SignedUrlInput: S3SignedUrlInput;
+  S3SignedUrlResponse: ResolverTypeWrapper<S3SignedUrlResponse>;
   User: ResolverTypeWrapper<User>;
   UserInput: UserInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -295,6 +313,8 @@ export type ResolversParentTypes = ResolversObject<{
   Profile: Profile;
   ProfileInput: ProfileInput;
   Query: {};
+  S3SignedUrlInput: S3SignedUrlInput;
+  S3SignedUrlResponse: S3SignedUrlResponse;
   User: User;
   UserInput: UserInput;
   Boolean: Scalars['Boolean'];
@@ -332,6 +352,7 @@ export type DenimReportResolvers<ContextType = Context, ParentType extends Resol
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
   updateUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'id' | 'input'>>;
+  createS3SignedUrl?: Resolver<ResolversTypes['S3SignedUrlResponse'], ParentType, ContextType, RequireFields<MutationCreateS3SignedUrlArgs, 'input'>>;
   createProfile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType, RequireFields<MutationCreateProfileArgs, 'input'>>;
   updateProfile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType, RequireFields<MutationUpdateProfileArgs, 'id' | 'input'>>;
   createDenim?: Resolver<ResolversTypes['Denim'], ParentType, ContextType, RequireFields<MutationCreateDenimArgs, 'input'>>;
@@ -357,10 +378,16 @@ export type ProfileResolvers<ContextType = Context, ParentType extends Resolvers
 }>;
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  getUser?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  getCurrentUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   getProfile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType, RequireFields<QueryGetProfileArgs, 'accountId'>>;
   getDenim?: Resolver<ResolversTypes['Denim'], ParentType, ContextType, RequireFields<QueryGetDenimArgs, 'id'>>;
   getDenimReport?: Resolver<ResolversTypes['DenimReport'], ParentType, ContextType, RequireFields<QueryGetDenimReportArgs, 'id'>>;
+}>;
+
+export type S3SignedUrlResponseResolvers<ContextType = Context, ParentType extends ResolversParentTypes['S3SignedUrlResponse'] = ResolversParentTypes['S3SignedUrlResponse']> = ResolversObject<{
+  fileName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  signedUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
@@ -380,6 +407,7 @@ export type Resolvers<ContextType = Context> = ResolversObject<{
   Mutation?: MutationResolvers<ContextType>;
   Profile?: ProfileResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  S3SignedUrlResponse?: S3SignedUrlResponseResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 }>;
 

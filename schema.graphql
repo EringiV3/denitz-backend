@@ -1,5 +1,5 @@
 type Query {
-  getUser: User!
+  getCurrentUser: User
   getProfile(accountId: String!): Profile!
   getDenim(id: String!): Denim!
   getDenimReport(id: String!): DenimReport!
@@ -8,7 +8,7 @@ type Query {
 type Mutation {
   createUser(input: UserInput!): User!
   updateUser(id: String!, input: UserInput!): User!
-  createS3SignedUrl: String!
+  createS3SignedUrl(input: S3SignedUrlInput!): S3SignedUrlResponse!
   createProfile(input: ProfileInput!): Profile!
   updateProfile(id: String!, input: ProfileInput!): Profile!
   createDenim(input: DenimInput!): Denim!
@@ -17,6 +17,10 @@ type Mutation {
   createDenimReport(input: DenimReportInput!): DenimReport!
   updateDenimReport(id: String!, input: DenimReportInput!): DenimReport!
   deleteDenimReport(id: String!): DenimReport!
+}
+
+input S3SignedUrlInput {
+  contentType: String!
 }
 
 input DenimReportInput {
@@ -90,6 +94,11 @@ type DenimReport {
   denim: Denim
   createdAt: Date
   updatedAt: Date
+}
+
+type S3SignedUrlResponse {
+  fileName: String!
+  signedUrl: String!
 }
 
 scalar Date
