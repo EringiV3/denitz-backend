@@ -58,10 +58,9 @@ export type DenimReportInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createUser: User;
+  createUserAccount: User;
   updateUser: User;
   createS3SignedUrl: S3SignedUrlResponse;
-  createProfile: Profile;
   updateProfile: Profile;
   createDenim: Denim;
   updateDenim: Denim;
@@ -69,11 +68,6 @@ export type Mutation = {
   createDenimReport: DenimReport;
   updateDenimReport: DenimReport;
   deleteDenimReport: DenimReport;
-};
-
-
-export type MutationCreateUserArgs = {
-  input: UserInput;
 };
 
 
@@ -85,11 +79,6 @@ export type MutationUpdateUserArgs = {
 
 export type MutationCreateS3SignedUrlArgs = {
   input: S3SignedUrlInput;
-};
-
-
-export type MutationCreateProfileArgs = {
-  input: ProfileInput;
 };
 
 
@@ -350,10 +339,9 @@ export type DenimReportResolvers<ContextType = Context, ParentType extends Resol
 }>;
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
+  createUserAccount?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   updateUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'id' | 'input'>>;
   createS3SignedUrl?: Resolver<ResolversTypes['S3SignedUrlResponse'], ParentType, ContextType, RequireFields<MutationCreateS3SignedUrlArgs, 'input'>>;
-  createProfile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType, RequireFields<MutationCreateProfileArgs, 'input'>>;
   updateProfile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType, RequireFields<MutationUpdateProfileArgs, 'id' | 'input'>>;
   createDenim?: Resolver<ResolversTypes['Denim'], ParentType, ContextType, RequireFields<MutationCreateDenimArgs, 'input'>>;
   updateDenim?: Resolver<ResolversTypes['Denim'], ParentType, ContextType, RequireFields<MutationUpdateDenimArgs, 'id' | 'input'>>;

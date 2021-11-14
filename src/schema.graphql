@@ -6,10 +6,9 @@ type Query {
 }
 
 type Mutation {
-  createUser(input: UserInput!): User!
+  createUserAccount: User!
   updateUser(id: String!, input: UserInput!): User!
   createS3SignedUrl(input: S3SignedUrlInput!): S3SignedUrlResponse!
-  createProfile(input: ProfileInput!): Profile!
   updateProfile(id: String!, input: ProfileInput!): Profile!
   createDenim(input: DenimInput!): Denim!
   updateDenim(id: String!, input: DenimInput!): Denim!
