@@ -148,6 +148,7 @@ export type Query = {
   getProfile: Profile;
   getDenim: Denim;
   getDenimReport: DenimReport;
+  isAvailableAccountId?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -163,6 +164,11 @@ export type QueryGetDenimArgs = {
 
 export type QueryGetDenimReportArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryIsAvailableAccountIdArgs = {
+  value: Scalars['String'];
 };
 
 export type S3SignedUrlInput = {
@@ -283,11 +289,11 @@ export type ResolversTypes = ResolversObject<{
   Profile: ResolverTypeWrapper<Profile>;
   ProfileInput: ProfileInput;
   Query: ResolverTypeWrapper<{}>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   S3SignedUrlInput: S3SignedUrlInput;
   S3SignedUrlResponse: ResolverTypeWrapper<S3SignedUrlResponse>;
   User: ResolverTypeWrapper<User>;
   UserInput: UserInput;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -302,11 +308,11 @@ export type ResolversParentTypes = ResolversObject<{
   Profile: Profile;
   ProfileInput: ProfileInput;
   Query: {};
+  Boolean: Scalars['Boolean'];
   S3SignedUrlInput: S3SignedUrlInput;
   S3SignedUrlResponse: S3SignedUrlResponse;
   User: User;
   UserInput: UserInput;
-  Boolean: Scalars['Boolean'];
 }>;
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
@@ -370,6 +376,7 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
   getProfile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType, RequireFields<QueryGetProfileArgs, 'accountId'>>;
   getDenim?: Resolver<ResolversTypes['Denim'], ParentType, ContextType, RequireFields<QueryGetDenimArgs, 'id'>>;
   getDenimReport?: Resolver<ResolversTypes['DenimReport'], ParentType, ContextType, RequireFields<QueryGetDenimReportArgs, 'id'>>;
+  isAvailableAccountId?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<QueryIsAvailableAccountIdArgs, 'value'>>;
 }>;
 
 export type S3SignedUrlResponseResolvers<ContextType = Context, ParentType extends ResolversParentTypes['S3SignedUrlResponse'] = ResolversParentTypes['S3SignedUrlResponse']> = ResolversObject<{

@@ -3,6 +3,7 @@ type Query {
   getProfile(accountId: String!): Profile!
   getDenim(id: String!): Denim!
   getDenimReport(id: String!): DenimReport!
+  isAvailableAccountId(value: String!): Boolean
 }
 
 type Mutation {
