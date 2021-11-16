@@ -14,7 +14,7 @@ export const updateUser: MutationResolvers['updateUser'] = async (
 
   const user = await prisma.user.findUnique({
     where: {
-      id: userId,
+      id: args.id,
     },
   });
 
@@ -22,9 +22,17 @@ export const updateUser: MutationResolvers['updateUser'] = async (
     throw new Error('Not Found Error.');
   }
 
+  if (user.id !== userId) {
+    throw new Error('Authorization Error.');
+  }
+
+  if (!/^[A-Za-z0-9_-]+$/.test(args.input.accountId)) {
+    throw new Error('Invalid Input.');
+  }
+
   const updatedUser = await prisma.user.update({
     where: {
-      id: userId,
+      id: args.id,
     },
     data: {
       accountId: args.input.accountId,
