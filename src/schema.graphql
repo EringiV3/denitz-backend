@@ -1,7 +1,8 @@
 type Query {
   getCurrentUser: User
+  getUser(accountId: String!): User
   getProfile(accountId: String!): Profile!
-  getDenim(id: String!): Denim!
+  getDenim(id: String!): Denim
   getDenimReport(id: String!): DenimReport!
   isAvailableAccountId(value: String!): Boolean
 }
@@ -55,7 +56,7 @@ type User {
   id: String!
   accountId: String!
   profile: Profile
-  denim: [Denim]
+  denims: [Denim]
   createdAt: Date
   updatedAt: Date
 }

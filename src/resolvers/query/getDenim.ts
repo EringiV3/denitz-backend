@@ -12,8 +12,5 @@ export const getDenim: QueryResolvers['getDenim'] = async (
       id: args.id,
     },
   });
-  if (!denim) {
-    throw new Error('Not Found Error.');
-  }
   return denim;
 };

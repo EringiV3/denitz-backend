@@ -145,10 +145,16 @@ export type ProfileInput = {
 export type Query = {
   __typename?: 'Query';
   getCurrentUser?: Maybe<User>;
+  getUser?: Maybe<User>;
   getProfile: Profile;
-  getDenim: Denim;
+  getDenim?: Maybe<Denim>;
   getDenimReport: DenimReport;
   isAvailableAccountId?: Maybe<Scalars['Boolean']>;
+};
+
+
+export type QueryGetUserArgs = {
+  accountId: Scalars['String'];
 };
 
 
@@ -186,7 +192,7 @@ export type User = {
   id: Scalars['String'];
   accountId: Scalars['String'];
   profile?: Maybe<Profile>;
-  denim?: Maybe<Array<Maybe<Denim>>>;
+  denims?: Maybe<Array<Maybe<Denim>>>;
   createdAt?: Maybe<Scalars['Date']>;
   updatedAt?: Maybe<Scalars['Date']>;
 };
@@ -373,8 +379,9 @@ export type ProfileResolvers<ContextType = Context, ParentType extends Resolvers
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   getCurrentUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  getUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserArgs, 'accountId'>>;
   getProfile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType, RequireFields<QueryGetProfileArgs, 'accountId'>>;
-  getDenim?: Resolver<ResolversTypes['Denim'], ParentType, ContextType, RequireFields<QueryGetDenimArgs, 'id'>>;
+  getDenim?: Resolver<Maybe<ResolversTypes['Denim']>, ParentType, ContextType, RequireFields<QueryGetDenimArgs, 'id'>>;
   getDenimReport?: Resolver<ResolversTypes['DenimReport'], ParentType, ContextType, RequireFields<QueryGetDenimReportArgs, 'id'>>;
   isAvailableAccountId?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<QueryIsAvailableAccountIdArgs, 'value'>>;
 }>;
@@ -389,7 +396,7 @@ export type UserResolvers<ContextType = Context, ParentType extends ResolversPar
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   accountId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   profile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType>;
-  denim?: Resolver<Maybe<Array<Maybe<ResolversTypes['Denim']>>>, ParentType, ContextType>;
+  denims?: Resolver<Maybe<Array<Maybe<ResolversTypes['Denim']>>>, ParentType, ContextType>;
   createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
