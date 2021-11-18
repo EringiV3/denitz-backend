@@ -11,9 +11,13 @@ export const getDenim: QueryResolvers['getDenim'] = async (
     where: {
       id: args.id,
     },
+    include: {
+      user: {
+        include: {
+          profile: true,
+        },
+      },
+    },
   });
-  if (!denim) {
-    throw new Error('Not Found Error.');
-  }
   return denim;
 };

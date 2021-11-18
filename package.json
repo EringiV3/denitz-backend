@@ -13,7 +13,8 @@
     "graphql:codegen": "graphql-codegen --config codegen.yml",
     "prisma:studio": "prisma studio",
     "prisma:generate": "prisma generate",
-    "prisma:deploy": "prisma migrate deploy"
+    "prisma:deploy": "prisma migrate deploy",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@graphql-tools/graphql-file-loader": "^7.0.1",
