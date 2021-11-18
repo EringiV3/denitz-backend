@@ -11,6 +11,13 @@ export const getDenim: QueryResolvers['getDenim'] = async (
     where: {
       id: args.id,
     },
+    include: {
+      user: {
+        include: {
+          profile: true,
+        },
+      },
+    },
   });
   return denim;
 };

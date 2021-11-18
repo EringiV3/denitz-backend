@@ -56,7 +56,7 @@ type User {
   id: String!
   accountId: String!
   profile: Profile
-  denims: [Denim]
+  denims: [Denim!]
   createdAt: Date
   updatedAt: Date
 }
@@ -80,7 +80,7 @@ type Denim {
   description: String
   imageUrl: String
   user: User
-  denimReports: [DenimReport]
+  denimReports: [DenimReport!]
   createdAt: Date
   updatedAt: Date
 }
@@ -91,7 +91,7 @@ type DenimReport {
   description: String
   frontImageUrl: String
   backImageUrl: String
-  detailImageUrl: [String]
+  detailImageUrl: [String!]
   denim: Denim
   createdAt: Date
   updatedAt: Date

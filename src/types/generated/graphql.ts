@@ -23,7 +23,7 @@ export type Denim = {
   description?: Maybe<Scalars['String']>;
   imageUrl?: Maybe<Scalars['String']>;
   user?: Maybe<User>;
-  denimReports?: Maybe<Array<Maybe<DenimReport>>>;
+  denimReports?: Maybe<Array<DenimReport>>;
   createdAt?: Maybe<Scalars['Date']>;
   updatedAt?: Maybe<Scalars['Date']>;
 };
@@ -41,7 +41,7 @@ export type DenimReport = {
   description?: Maybe<Scalars['String']>;
   frontImageUrl?: Maybe<Scalars['String']>;
   backImageUrl?: Maybe<Scalars['String']>;
-  detailImageUrl?: Maybe<Array<Maybe<Scalars['String']>>>;
+  detailImageUrl?: Maybe<Array<Scalars['String']>>;
   denim?: Maybe<Denim>;
   createdAt?: Maybe<Scalars['Date']>;
   updatedAt?: Maybe<Scalars['Date']>;
@@ -192,7 +192,7 @@ export type User = {
   id: Scalars['String'];
   accountId: Scalars['String'];
   profile?: Maybe<Profile>;
-  denims?: Maybe<Array<Maybe<Denim>>>;
+  denims?: Maybe<Array<Denim>>;
   createdAt?: Maybe<Scalars['Date']>;
   updatedAt?: Maybe<Scalars['Date']>;
 };
@@ -331,7 +331,7 @@ export type DenimResolvers<ContextType = Context, ParentType extends ResolversPa
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   imageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-  denimReports?: Resolver<Maybe<Array<Maybe<ResolversTypes['DenimReport']>>>, ParentType, ContextType>;
+  denimReports?: Resolver<Maybe<Array<ResolversTypes['DenimReport']>>, ParentType, ContextType>;
   createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -343,7 +343,7 @@ export type DenimReportResolvers<ContextType = Context, ParentType extends Resol
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   frontImageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   backImageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  detailImageUrl?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  detailImageUrl?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   denim?: Resolver<Maybe<ResolversTypes['Denim']>, ParentType, ContextType>;
   createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
@@ -396,7 +396,7 @@ export type UserResolvers<ContextType = Context, ParentType extends ResolversPar
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   accountId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   profile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType>;
-  denims?: Resolver<Maybe<Array<Maybe<ResolversTypes['Denim']>>>, ParentType, ContextType>;
+  denims?: Resolver<Maybe<Array<ResolversTypes['Denim']>>, ParentType, ContextType>;
   createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
