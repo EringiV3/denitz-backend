@@ -30,7 +30,7 @@ input DenimReportInput {
   description: String
   frontImageUrl: String
   backImageUrl: String
-  detailImageUrl: [String!]!
+  detailImageUrls: [String!]!
 }
 
 input DenimInput {
@@ -91,7 +91,7 @@ type DenimReport {
   description: String
   frontImageUrl: String
   backImageUrl: String
-  detailImageUrl: [String!]
+  detailImageUrls: [String!]
   denim: Denim
   createdAt: Date
   updatedAt: Date

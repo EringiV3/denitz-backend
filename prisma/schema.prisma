@@ -46,14 +46,22 @@ model Denim {
 }
 
 model DenimReport {
-  id             String   @id @default(uuid())
+  id             String                      @id @default(uuid())
   title          String?
   description    String?
   frontImageUrl  String?
   backImageUrl   String?
-  detailImageUrl String[]
-  denim          Denim    @relation(fields: [denimId], references: [id])
+  detailImageUrl DenimReportDetailImageUrl[]
+  denim          Denim                       @relation(fields: [denimId], references: [id])
   denimId        String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt      DateTime                    @default(now())
+  updatedAt      DateTime                    @updatedAt
+}
+
+model DenimReportDetailImageUrl {
+  id            String      @id @default(uuid())
+  sortKey       Int
+  url           String
+  denimReportId String
+  denimReport   DenimReport @relation(fields: [denimReportId], references: [id])
 }

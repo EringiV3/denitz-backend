@@ -22,21 +22,39 @@ export const updateDenimReport: MutationResolvers['updateDenimReport'] = async (
     throw new Error('Not Found Error.');
   }
 
-  const updatedDenimReport = await prisma.denimReport.update({
-    where: {
-      id: args.id,
-    },
-    data: {
-      title: args.input.title,
-      description: args.input.description,
-      frontImageUrl: args.input.frontImageUrl,
-      backImageUrl: args.input.backImageUrl,
-      detailImageUrl: args.input.detailImageUrl,
-      denimId: args.input.denimId,
-    },
-    include: {
-      denim: true,
-    },
-  });
+  const [, updatedDenimReport] = await prisma.$transaction([
+    prisma.denimReportDetailImageUrl.deleteMany({
+      where: {
+        denimReportId: args.id,
+      },
+    }),
+    prisma.denimReport.update({
+      where: {
+        id: args.id,
+      },
+      data: {
+        title: args.input.title,
+        description: args.input.description,
+        frontImageUrl: args.input.frontImageUrl,
+        backImageUrl: args.input.backImageUrl,
+        detailImageUrl: {
+          create: args.input.detailImageUrls.map((imageUrl, i) => ({
+            sortKey: i,
+            url: imageUrl,
+          })),
+        },
+        denimId: args.input.denimId,
+      },
+      include: {
+        denim: true,
+        detailImageUrl: {
+          orderBy: {
+            sortKey: 'asc',
+          },
+        },
+      },
+    }),
+  ]);
+
   return updatedDenimReport;
 };

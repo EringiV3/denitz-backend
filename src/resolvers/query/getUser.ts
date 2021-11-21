@@ -7,7 +7,6 @@ export const getUser: QueryResolvers['getUser'] = async (
   context,
   info
 ) => {
-  console.info('hoge');
   const user = await prisma.user.findUnique({
     where: {
       accountId: args.accountId,
@@ -17,6 +16,5 @@ export const getUser: QueryResolvers['getUser'] = async (
       denims: true,
     },
   });
-  console.log({ denims: user?.denims });
   return user;
 };

@@ -13,6 +13,7 @@ export const getCurrentUser: QueryResolvers['getCurrentUser'] = async (
     },
     include: {
       profile: true,
+      denims: true,
     },
   });
   if (!user) {
