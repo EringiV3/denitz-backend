@@ -17,6 +17,11 @@ export const getDenim: QueryResolvers['getDenim'] = async (
           profile: true,
         },
       },
+      denimReports: {
+        include: {
+          detailImageUrls: true,
+        },
+      },
     },
   });
   return denim;

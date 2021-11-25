@@ -7,6 +7,7 @@ export const deleteDenim: MutationResolvers['deleteDenim'] = async (
   context,
   info
 ) => {
+  // TODO: 紐づくデニムレポートも一緒に削除する
   const userId = context.user?.id;
   if (!userId) {
     throw new Error('Authentication Error.');

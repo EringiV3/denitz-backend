@@ -12,8 +12,12 @@ export const getDenimReport: QueryResolvers['getDenimReport'] = async (
       id: args.id,
     },
     include: {
-      denim: true,
-      detailImageUrl: {
+      denim: {
+        include: {
+          denimReports: true,
+        },
+      },
+      detailImageUrls: {
         orderBy: {
           sortKey: 'asc',
         },

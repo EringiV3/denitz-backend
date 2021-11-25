@@ -91,10 +91,16 @@ type DenimReport {
   description: String
   frontImageUrl: String
   backImageUrl: String
-  detailImageUrls: [String!]
+  detailImageUrls: [DenimReportDetailImageUrl!]
   denim: Denim
   createdAt: Date
   updatedAt: Date
+}
+
+type DenimReportDetailImageUrl {
+  id: String!
+  sortKey: Int!
+  url: String!
 }
 
 type S3SignedUrlResponse {

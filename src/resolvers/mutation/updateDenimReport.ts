@@ -37,7 +37,7 @@ export const updateDenimReport: MutationResolvers['updateDenimReport'] = async (
         description: args.input.description,
         frontImageUrl: args.input.frontImageUrl,
         backImageUrl: args.input.backImageUrl,
-        detailImageUrl: {
+        detailImageUrls: {
           create: args.input.detailImageUrls.map((imageUrl, i) => ({
             sortKey: i,
             url: imageUrl,
@@ -47,7 +47,7 @@ export const updateDenimReport: MutationResolvers['updateDenimReport'] = async (
       },
       include: {
         denim: true,
-        detailImageUrl: {
+        detailImageUrls: {
           orderBy: {
             sortKey: 'asc',
           },

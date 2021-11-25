@@ -35,7 +35,7 @@ export const deleteDenimReport: MutationResolvers['deleteDenimReport'] = async (
     },
     include: {
       denim: true,
-      detailImageUrl: {
+      detailImageUrls: {
         orderBy: {
           sortKey: 'asc',
         },
