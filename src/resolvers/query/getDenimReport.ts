@@ -15,6 +15,7 @@ export const getDenimReport: QueryResolvers['getDenimReport'] = async (
       denim: {
         include: {
           denimReports: true,
+          user: true,
         },
       },
       detailImageUrls: {

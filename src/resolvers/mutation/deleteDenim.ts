@@ -7,7 +7,6 @@ export const deleteDenim: MutationResolvers['deleteDenim'] = async (
   context,
   info
 ) => {
-  // TODO: 紐づくデニムレポートも一緒に削除する
   const userId = context.user?.id;
   if (!userId) {
     throw new Error('Authentication Error.');
@@ -16,6 +15,9 @@ export const deleteDenim: MutationResolvers['deleteDenim'] = async (
   const targetDenim = await prisma.denim.findUnique({
     where: {
       id: args.id,
+    },
+    include: {
+      denimReports: true,
     },
   });
 
@@ -27,13 +29,27 @@ export const deleteDenim: MutationResolvers['deleteDenim'] = async (
     throw new Error('Authorization Error.');
   }
 
-  const denim = await prisma.denim.delete({
-    where: {
-      id: args.id,
-    },
-    include: {
-      user: true,
-    },
-  });
+  const [, , denim] = await prisma.$transaction([
+    prisma.denimReportDetailImageUrl.deleteMany({
+      where: {
+        OR: targetDenim.denimReports.map((report) => ({
+          denimReportId: report.id,
+        })),
+      },
+    }),
+    prisma.denimReport.deleteMany({
+      where: {
+        denimId: targetDenim.id,
+      },
+    }),
+    prisma.denim.delete({
+      where: {
+        id: args.id,
+      },
+      include: {
+        user: true,
+      },
+    }),
+  ]);
   return denim;
 };

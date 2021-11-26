@@ -18,6 +18,7 @@ export const deleteDenimReport: MutationResolvers['deleteDenimReport'] = async (
     },
     include: {
       denim: true,
+      detailImageUrls: true,
     },
   });
 
@@ -29,18 +30,25 @@ export const deleteDenimReport: MutationResolvers['deleteDenimReport'] = async (
     throw new Error('Authorization Error.');
   }
 
-  const denimReport = await prisma.denimReport.delete({
-    where: {
-      id: args.id,
-    },
-    include: {
-      denim: true,
-      detailImageUrls: {
-        orderBy: {
-          sortKey: 'asc',
+  const [, denimReport] = await prisma.$transaction([
+    prisma.denimReportDetailImageUrl.deleteMany({
+      where: {
+        denimReportId: args.id,
+      },
+    }),
+    prisma.denimReport.delete({
+      where: {
+        id: args.id,
+      },
+      include: {
+        denim: true,
+        detailImageUrls: {
+          orderBy: {
+            sortKey: 'asc',
+          },
         },
       },
-    },
-  });
+    }),
+  ]);
   return denimReport;
 };
