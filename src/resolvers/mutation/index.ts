@@ -7,5 +7,6 @@ export { deleteDenimReport } from './deleteDenimReport';
 export { deleteUserAccount } from './deleteUserAccount';
 export { updateDenim } from './updateDenim';
 export { updateDenimReport } from './updateDenimReport';
+export { updateDenimReportSortOrder } from './updateDenimReportSortOrder';
 export { updateProfile } from './updateProfile';
 export { updateUser } from './updateUser';

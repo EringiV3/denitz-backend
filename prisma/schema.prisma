@@ -47,6 +47,7 @@ model Denim {
 
 model DenimReport {
   id              String                      @id @default(uuid())
+  sortKey         Int?
   title           String?
   description     String?
   frontImageUrl   String?

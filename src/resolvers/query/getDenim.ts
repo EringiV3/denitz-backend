@@ -21,6 +21,9 @@ export const getDenim: QueryResolvers['getDenim'] = async (
         include: {
           detailImageUrls: true,
         },
+        orderBy: {
+          sortKey: 'asc',
+        },
       },
     },
   });

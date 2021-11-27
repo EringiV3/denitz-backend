@@ -76,6 +76,7 @@ export type Mutation = {
   createDenimReport: DenimReport;
   updateDenimReport: DenimReport;
   deleteDenimReport: DenimReport;
+  updateDenimReportSortOrder: Denim;
 };
 
 
@@ -125,6 +126,11 @@ export type MutationUpdateDenimReportArgs = {
 
 export type MutationDeleteDenimReportArgs = {
   id: Scalars['String'];
+};
+
+
+export type MutationUpdateDenimReportSortOrderArgs = {
+  input: UpdateDenimReportSortOrderInput;
 };
 
 export type Profile = {
@@ -207,6 +213,11 @@ export type User = {
 
 export type UserInput = {
   accountId: Scalars['String'];
+};
+
+export type UpdateDenimReportSortOrderInput = {
+  denimId: Scalars['String'];
+  sortOrder: Array<Scalars['String']>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -310,6 +321,7 @@ export type ResolversTypes = ResolversObject<{
   S3SignedUrlResponse: ResolverTypeWrapper<S3SignedUrlResponse>;
   User: ResolverTypeWrapper<User>;
   UserInput: UserInput;
+  updateDenimReportSortOrderInput: UpdateDenimReportSortOrderInput;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -331,6 +343,7 @@ export type ResolversParentTypes = ResolversObject<{
   S3SignedUrlResponse: S3SignedUrlResponse;
   User: User;
   UserInput: UserInput;
+  updateDenimReportSortOrderInput: UpdateDenimReportSortOrderInput;
 }>;
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
@@ -381,6 +394,7 @@ export type MutationResolvers<ContextType = Context, ParentType extends Resolver
   createDenimReport?: Resolver<ResolversTypes['DenimReport'], ParentType, ContextType, RequireFields<MutationCreateDenimReportArgs, 'input'>>;
   updateDenimReport?: Resolver<ResolversTypes['DenimReport'], ParentType, ContextType, RequireFields<MutationUpdateDenimReportArgs, 'id' | 'input'>>;
   deleteDenimReport?: Resolver<ResolversTypes['DenimReport'], ParentType, ContextType, RequireFields<MutationDeleteDenimReportArgs, 'id'>>;
+  updateDenimReportSortOrder?: Resolver<ResolversTypes['Denim'], ParentType, ContextType, RequireFields<MutationUpdateDenimReportSortOrderArgs, 'input'>>;
 }>;
 
 export type ProfileResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Profile'] = ResolversParentTypes['Profile']> = ResolversObject<{
