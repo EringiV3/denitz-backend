@@ -1,7 +1,8 @@
+import type { User } from 'auth0';
+
 export type Context = {
   user?: {
-    name: string;
-    email: string;
     id: string;
+    auth0UserInfo: User;
   };
 };

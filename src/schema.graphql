@@ -9,6 +9,7 @@ type Query {
 
 type Mutation {
   createUserAccount: User!
+  deleteUserAccount: Boolean
   updateUser(id: String!, input: UserInput!): User!
   createS3SignedUrl(input: S3SignedUrlInput!): S3SignedUrlResponse!
   updateProfile(id: String!, input: ProfileInput!): Profile!
