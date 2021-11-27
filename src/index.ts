@@ -4,13 +4,13 @@ import { addResolversToSchema } from '@graphql-tools/schema';
 import { ApolloServer } from 'apollo-server';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import jwksClient from 'jwks-rsa';
-import fetch from 'node-fetch';
 import { join } from 'path';
 import {
   APOLLO_SERVER_PORT,
   AUTH0_AUDIENCE,
   AUTH0_DOMAIN,
 } from './config/constants';
+import { auth0 } from './lib/auth0';
 import resolvers from './resolvers';
 import { Context } from './types/context';
 
@@ -32,7 +32,7 @@ const server = new ApolloServer({
     try {
       const user = await new Promise<JwtPayload>((resolve, reject) => {
         const client = jwksClient({
-          jwksUri: `${AUTH0_DOMAIN}/.well-known/jwks.json`,
+          jwksUri: `https://${AUTH0_DOMAIN}/.well-known/jwks.json`,
         });
         jwt.verify(
           token,
@@ -44,7 +44,7 @@ const server = new ApolloServer({
           },
           {
             audience: `${AUTH0_AUDIENCE}`,
-            issuer: `${AUTH0_DOMAIN}/`,
+            issuer: `https://${AUTH0_DOMAIN}/`,
             algorithms: ['RS256'],
           },
           (err, decoded) => {
@@ -59,18 +59,14 @@ const server = new ApolloServer({
         );
       });
 
-      const userInfo = await fetch(`${AUTH0_DOMAIN}/userinfo`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      }).then((res) => res.json());
+      const userInfo = await auth0.getUser({
+        id: user.sub ?? '',
+      });
 
       return {
         user: {
           id: user.sub,
-          name: userInfo.nickname,
-          email: userInfo.email,
+          auth0UserInfo: userInfo,
         },
       } as Context;
     } catch (error) {

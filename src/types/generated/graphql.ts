@@ -66,6 +66,7 @@ export type DenimReportInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   createUserAccount: User;
+  deleteUserAccount?: Maybe<Scalars['Boolean']>;
   updateUser: User;
   createS3SignedUrl: S3SignedUrlResponse;
   updateProfile: Profile;
@@ -301,10 +302,10 @@ export type ResolversTypes = ResolversObject<{
   Int: ResolverTypeWrapper<Scalars['Int']>;
   DenimReportInput: DenimReportInput;
   Mutation: ResolverTypeWrapper<{}>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Profile: ResolverTypeWrapper<Profile>;
   ProfileInput: ProfileInput;
   Query: ResolverTypeWrapper<{}>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   S3SignedUrlInput: S3SignedUrlInput;
   S3SignedUrlResponse: ResolverTypeWrapper<S3SignedUrlResponse>;
   User: ResolverTypeWrapper<User>;
@@ -322,10 +323,10 @@ export type ResolversParentTypes = ResolversObject<{
   Int: Scalars['Int'];
   DenimReportInput: DenimReportInput;
   Mutation: {};
+  Boolean: Scalars['Boolean'];
   Profile: Profile;
   ProfileInput: ProfileInput;
   Query: {};
-  Boolean: Scalars['Boolean'];
   S3SignedUrlInput: S3SignedUrlInput;
   S3SignedUrlResponse: S3SignedUrlResponse;
   User: User;
@@ -370,6 +371,7 @@ export type DenimReportDetailImageUrlResolvers<ContextType = Context, ParentType
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   createUserAccount?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  deleteUserAccount?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   updateUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'id' | 'input'>>;
   createS3SignedUrl?: Resolver<ResolversTypes['S3SignedUrlResponse'], ParentType, ContextType, RequireFields<MutationCreateS3SignedUrlArgs, 'input'>>;
   updateProfile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType, RequireFields<MutationUpdateProfileArgs, 'id' | 'input'>>;

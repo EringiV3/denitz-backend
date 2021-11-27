@@ -29,7 +29,10 @@ export const createUserAccount: MutationResolvers['createUserAccount'] = async (
       id: userId,
       accountId: uuidv4(),
       profile: {
-        create: {},
+        create: {
+          name: context.user?.auth0UserInfo.nickname,
+          iconImageUrl: context.user?.auth0UserInfo.picture,
+        },
       },
     },
   });

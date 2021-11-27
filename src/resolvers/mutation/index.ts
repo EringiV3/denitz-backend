@@ -4,6 +4,7 @@ export { createS3SignedUrl } from './createS3SignedUrl';
 export { createUserAccount } from './createUserAccount';
 export { deleteDenim } from './deleteDenim';
 export { deleteDenimReport } from './deleteDenimReport';
+export { deleteUserAccount } from './deleteUserAccount';
 export { updateDenim } from './updateDenim';
 export { updateDenimReport } from './updateDenimReport';
 export { updateProfile } from './updateProfile';
