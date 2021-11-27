@@ -19,10 +19,16 @@ type Mutation {
   createDenimReport(input: DenimReportInput!): DenimReport!
   updateDenimReport(id: String!, input: DenimReportInput!): DenimReport!
   deleteDenimReport(id: String!): DenimReport!
+  updateDenimReportSortOrder(input: updateDenimReportSortOrderInput!): Denim!
 }
 
 input S3SignedUrlInput {
   contentType: String!
+}
+
+input updateDenimReportSortOrderInput {
+  denimId: String!
+  sortOrder: [String!]!
 }
 
 input DenimReportInput {
