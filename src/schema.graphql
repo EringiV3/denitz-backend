@@ -30,7 +30,7 @@ input DenimReportInput {
   description: String
   frontImageUrl: String
   backImageUrl: String
-  detailImageUrl: [String!]!
+  detailImageUrls: [String!]!
 }
 
 input DenimInput {
@@ -91,10 +91,16 @@ type DenimReport {
   description: String
   frontImageUrl: String
   backImageUrl: String
-  detailImageUrl: [String!]
+  detailImageUrls: [DenimReportDetailImageUrl!]
   denim: Denim
   createdAt: Date
   updatedAt: Date
+}
+
+type DenimReportDetailImageUrl {
+  id: String!
+  sortKey: Int!
+  url: String!
 }
 
 type S3SignedUrlResponse {

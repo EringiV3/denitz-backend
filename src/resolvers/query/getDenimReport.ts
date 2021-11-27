@@ -11,6 +11,19 @@ export const getDenimReport: QueryResolvers['getDenimReport'] = async (
     where: {
       id: args.id,
     },
+    include: {
+      denim: {
+        include: {
+          denimReports: true,
+          user: true,
+        },
+      },
+      detailImageUrls: {
+        orderBy: {
+          sortKey: 'asc',
+        },
+      },
+    },
   });
   if (!denimReport) {
     throw new Error('Not Found Error.');

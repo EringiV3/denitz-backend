@@ -41,10 +41,17 @@ export type DenimReport = {
   description?: Maybe<Scalars['String']>;
   frontImageUrl?: Maybe<Scalars['String']>;
   backImageUrl?: Maybe<Scalars['String']>;
-  detailImageUrl?: Maybe<Array<Scalars['String']>>;
+  detailImageUrls?: Maybe<Array<DenimReportDetailImageUrl>>;
   denim?: Maybe<Denim>;
   createdAt?: Maybe<Scalars['Date']>;
   updatedAt?: Maybe<Scalars['Date']>;
+};
+
+export type DenimReportDetailImageUrl = {
+  __typename?: 'DenimReportDetailImageUrl';
+  id: Scalars['String'];
+  sortKey: Scalars['Int'];
+  url: Scalars['String'];
 };
 
 export type DenimReportInput = {
@@ -53,7 +60,7 @@ export type DenimReportInput = {
   description?: Maybe<Scalars['String']>;
   frontImageUrl?: Maybe<Scalars['String']>;
   backImageUrl?: Maybe<Scalars['String']>;
-  detailImageUrl: Array<Scalars['String']>;
+  detailImageUrls: Array<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -290,6 +297,8 @@ export type ResolversTypes = ResolversObject<{
   String: ResolverTypeWrapper<Scalars['String']>;
   DenimInput: DenimInput;
   DenimReport: ResolverTypeWrapper<DenimReport>;
+  DenimReportDetailImageUrl: ResolverTypeWrapper<DenimReportDetailImageUrl>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   DenimReportInput: DenimReportInput;
   Mutation: ResolverTypeWrapper<{}>;
   Profile: ResolverTypeWrapper<Profile>;
@@ -309,6 +318,8 @@ export type ResolversParentTypes = ResolversObject<{
   String: Scalars['String'];
   DenimInput: DenimInput;
   DenimReport: DenimReport;
+  DenimReportDetailImageUrl: DenimReportDetailImageUrl;
+  Int: Scalars['Int'];
   DenimReportInput: DenimReportInput;
   Mutation: {};
   Profile: Profile;
@@ -343,10 +354,17 @@ export type DenimReportResolvers<ContextType = Context, ParentType extends Resol
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   frontImageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   backImageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  detailImageUrl?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  detailImageUrls?: Resolver<Maybe<Array<ResolversTypes['DenimReportDetailImageUrl']>>, ParentType, ContextType>;
   denim?: Resolver<Maybe<ResolversTypes['Denim']>, ParentType, ContextType>;
   createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type DenimReportDetailImageUrlResolvers<ContextType = Context, ParentType extends ResolversParentTypes['DenimReportDetailImageUrl'] = ResolversParentTypes['DenimReportDetailImageUrl']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  sortKey?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -406,6 +424,7 @@ export type Resolvers<ContextType = Context> = ResolversObject<{
   Date?: GraphQLScalarType;
   Denim?: DenimResolvers<ContextType>;
   DenimReport?: DenimReportResolvers<ContextType>;
+  DenimReportDetailImageUrl?: DenimReportDetailImageUrlResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Profile?: ProfileResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
