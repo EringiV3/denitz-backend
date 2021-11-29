@@ -20,7 +20,9 @@ const schema = loadSchemaSync(join(__dirname, './schema.graphql'), {
 const schemaWithResolvers = addResolversToSchema({ schema, resolvers });
 const server = new ApolloServer({
   schema: schemaWithResolvers,
-  cors: true,
+  cors: {
+    origin: ['https://denitz-frontend.vercel.app'],
+  },
   context: async (ctx) => {
     const token = ctx.req.headers.authorization?.replace('Bearer ', '');
     if (token === undefined) {
