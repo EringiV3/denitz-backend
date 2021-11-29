@@ -38,6 +38,9 @@ const server = new ApolloServer({
           token,
           (header, cb) => {
             client.getSigningKey(header.kid, function (err, key) {
+              if (!key) {
+                throw new Error('Invalid key');
+              }
               const signingKey = key.getPublicKey();
               cb(null, signingKey);
             });
