@@ -1,8 +1,8 @@
-name: Deploy
+name: Deploy to Staging
 
 on:
   push:
-    branches: [main]
+    branches: [staging]
 
 env:
   GCP_REGION: ${{ secrets.GCP_REGION }}
@@ -13,6 +13,7 @@ env:
 
 jobs:
   deploy-to-cloud-run:
+    environment: Staging
     runs-on: ubuntu-latest
     steps:
       - name: checkout the repository
@@ -45,6 +46,7 @@ jobs:
             --allow-unauthenticated \
             --quiet
   migration:
+    environment: Staging
     runs-on: ubuntu-latest
     steps:
       - name: checkout the repository
