@@ -1,5 +1,6 @@
 import { S3 } from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
+import { S3_MEDIA_BUCKET_NAME } from '../../config/constants';
 import { MutationResolvers } from '../../types/generated/graphql';
 
 export const createS3SignedUrl: MutationResolvers['createS3SignedUrl'] = async (
@@ -19,7 +20,7 @@ export const createS3SignedUrl: MutationResolvers['createS3SignedUrl'] = async (
   const s3 = new S3({ region: 'ap-northeast-1', signatureVersion: 'v4' });
   const signedUrl = s3.getSignedUrl('putObject', {
     ContentType: contentType,
-    Bucket: 'denitz-media-dev',
+    Bucket: S3_MEDIA_BUCKET_NAME,
     Key: fileName,
     Expires: 60,
     ACL: 'public-read',
