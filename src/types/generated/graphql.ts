@@ -162,6 +162,7 @@ export type Query = {
   getUser?: Maybe<User>;
   getProfile: Profile;
   getDenim?: Maybe<Denim>;
+  getDenims: Array<Denim>;
   getDenimReport: DenimReport;
   isAvailableAccountId?: Maybe<Scalars['Boolean']>;
 };
@@ -179,6 +180,11 @@ export type QueryGetProfileArgs = {
 
 export type QueryGetDenimArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryGetDenimsArgs = {
+  accountId: Scalars['String'];
 };
 
 
@@ -416,6 +422,7 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
   getUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserArgs, 'accountId'>>;
   getProfile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType, RequireFields<QueryGetProfileArgs, 'accountId'>>;
   getDenim?: Resolver<Maybe<ResolversTypes['Denim']>, ParentType, ContextType, RequireFields<QueryGetDenimArgs, 'id'>>;
+  getDenims?: Resolver<Array<ResolversTypes['Denim']>, ParentType, ContextType, RequireFields<QueryGetDenimsArgs, 'accountId'>>;
   getDenimReport?: Resolver<ResolversTypes['DenimReport'], ParentType, ContextType, RequireFields<QueryGetDenimReportArgs, 'id'>>;
   isAvailableAccountId?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<QueryIsAvailableAccountIdArgs, 'value'>>;
 }>;
