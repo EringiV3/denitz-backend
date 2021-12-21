@@ -160,10 +160,10 @@ export type Query = {
   __typename?: 'Query';
   getCurrentUser?: Maybe<User>;
   getUser?: Maybe<User>;
-  getProfile: Profile;
+  getProfile?: Maybe<Profile>;
   getDenim?: Maybe<Denim>;
   getDenims: Array<Denim>;
-  getDenimReport: DenimReport;
+  getDenimReport?: Maybe<DenimReport>;
   isAvailableAccountId?: Maybe<Scalars['Boolean']>;
 };
 
@@ -420,10 +420,10 @@ export type ProfileResolvers<ContextType = Context, ParentType extends Resolvers
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   getCurrentUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   getUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserArgs, 'accountId'>>;
-  getProfile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType, RequireFields<QueryGetProfileArgs, 'accountId'>>;
+  getProfile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, RequireFields<QueryGetProfileArgs, 'accountId'>>;
   getDenim?: Resolver<Maybe<ResolversTypes['Denim']>, ParentType, ContextType, RequireFields<QueryGetDenimArgs, 'id'>>;
   getDenims?: Resolver<Array<ResolversTypes['Denim']>, ParentType, ContextType, RequireFields<QueryGetDenimsArgs, 'accountId'>>;
-  getDenimReport?: Resolver<ResolversTypes['DenimReport'], ParentType, ContextType, RequireFields<QueryGetDenimReportArgs, 'id'>>;
+  getDenimReport?: Resolver<Maybe<ResolversTypes['DenimReport']>, ParentType, ContextType, RequireFields<QueryGetDenimReportArgs, 'id'>>;
   isAvailableAccountId?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<QueryIsAvailableAccountIdArgs, 'value'>>;
 }>;
 

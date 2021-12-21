@@ -1,10 +1,10 @@
 type Query {
   getCurrentUser: User
   getUser(accountId: String!): User
-  getProfile(accountId: String!): Profile!
+  getProfile(accountId: String!): Profile
   getDenim(id: String!): Denim
   getDenims(accountId: String!): [Denim!]!
-  getDenimReport(id: String!): DenimReport!
+  getDenimReport(id: String!): DenimReport
   isAvailableAccountId(value: String!): Boolean
 }
 

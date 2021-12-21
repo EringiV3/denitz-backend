@@ -13,7 +13,7 @@ export const getProfile: QueryResolvers['getProfile'] = async (
     },
   });
   if (user === null) {
-    throw new Error('Not Found Error.');
+    return null;
   }
   const profile = await prisma.profile.findUnique({
     where: {
@@ -23,8 +23,5 @@ export const getProfile: QueryResolvers['getProfile'] = async (
       user: true,
     },
   });
-  if (!profile) {
-    throw new Error('Not Found Error.');
-  }
   return profile;
 };

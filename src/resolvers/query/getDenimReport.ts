@@ -25,8 +25,5 @@ export const getDenimReport: QueryResolvers['getDenimReport'] = async (
       },
     },
   });
-  if (!denimReport) {
-    throw new Error('Not Found Error.');
-  }
   return denimReport;
 };
