@@ -5,6 +5,7 @@ type Query {
   getDenim(id: String!): Denim
   getDenims(accountId: String!): [Denim!]!
   getDenimReport(id: String!): DenimReport
+  getDenimReports(input: DenimReportsQueryInput!): [DenimReport!]!
   isAvailableAccountId(value: String!): Boolean
 }
 
@@ -21,6 +22,11 @@ type Mutation {
   updateDenimReport(id: String!, input: DenimReportInput!): DenimReport!
   deleteDenimReport(id: String!): DenimReport!
   updateDenimReportSortOrder(input: updateDenimReportSortOrderInput!): Denim!
+}
+
+input DenimReportsQueryInput {
+  offset: Int!
+  perPage: Int!
 }
 
 input S3SignedUrlInput {
