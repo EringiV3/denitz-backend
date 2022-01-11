@@ -5,7 +5,7 @@ type Query {
   getDenim(id: String!): Denim
   getDenims(accountId: String!): [Denim!]!
   getDenimReport(id: String!): DenimReport
-  getDenimReports(input: DenimReportsQueryInput!): [DenimReport!]!
+  getDenimReports(input: DenimReportsQueryInput!): GetDenimReportsResponse!
   isAvailableAccountId(value: String!): Boolean
 }
 
@@ -120,6 +120,11 @@ type DenimReportDetailImageUrl {
 type S3SignedUrlResponse {
   fileName: String!
   signedUrl: String!
+}
+
+type GetDenimReportsResponse {
+  totalCount: Int!
+  denimReports: [DenimReport!]!
 }
 
 scalar Date

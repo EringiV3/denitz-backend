@@ -13,7 +13,11 @@ export const getDenimReports: QueryResolvers['getDenimReports'] = async (
     include: {
       denim: {
         include: {
-          user: true,
+          user: {
+            include: {
+              profile: true,
+            },
+          },
         },
       },
     },
@@ -21,5 +25,9 @@ export const getDenimReports: QueryResolvers['getDenimReports'] = async (
       createdAt: 'desc',
     },
   });
-  return denimReports;
+  const count = await prisma.denimReport.count();
+  return {
+    totalCount: count,
+    denimReports,
+  };
 };
