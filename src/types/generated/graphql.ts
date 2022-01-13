@@ -63,6 +63,17 @@ export type DenimReportInput = {
   detailImageUrls: Array<Scalars['String']>;
 };
 
+export type DenimReportsQueryInput = {
+  offset: Scalars['Int'];
+  perPage: Scalars['Int'];
+};
+
+export type GetDenimReportsResponse = {
+  __typename?: 'GetDenimReportsResponse';
+  totalCount: Scalars['Int'];
+  denimReports: Array<DenimReport>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createUserAccount: User;
@@ -160,10 +171,11 @@ export type Query = {
   __typename?: 'Query';
   getCurrentUser?: Maybe<User>;
   getUser?: Maybe<User>;
-  getProfile: Profile;
+  getProfile?: Maybe<Profile>;
   getDenim?: Maybe<Denim>;
   getDenims: Array<Denim>;
-  getDenimReport: DenimReport;
+  getDenimReport?: Maybe<DenimReport>;
+  getDenimReports: GetDenimReportsResponse;
   isAvailableAccountId?: Maybe<Scalars['Boolean']>;
 };
 
@@ -190,6 +202,11 @@ export type QueryGetDenimsArgs = {
 
 export type QueryGetDenimReportArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryGetDenimReportsArgs = {
+  input: DenimReportsQueryInput;
 };
 
 
@@ -318,6 +335,8 @@ export type ResolversTypes = ResolversObject<{
   DenimReportDetailImageUrl: ResolverTypeWrapper<DenimReportDetailImageUrl>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   DenimReportInput: DenimReportInput;
+  DenimReportsQueryInput: DenimReportsQueryInput;
+  GetDenimReportsResponse: ResolverTypeWrapper<GetDenimReportsResponse>;
   Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Profile: ResolverTypeWrapper<Profile>;
@@ -340,6 +359,8 @@ export type ResolversParentTypes = ResolversObject<{
   DenimReportDetailImageUrl: DenimReportDetailImageUrl;
   Int: Scalars['Int'];
   DenimReportInput: DenimReportInput;
+  DenimReportsQueryInput: DenimReportsQueryInput;
+  GetDenimReportsResponse: GetDenimReportsResponse;
   Mutation: {};
   Boolean: Scalars['Boolean'];
   Profile: Profile;
@@ -388,6 +409,12 @@ export type DenimReportDetailImageUrlResolvers<ContextType = Context, ParentType
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type GetDenimReportsResponseResolvers<ContextType = Context, ParentType extends ResolversParentTypes['GetDenimReportsResponse'] = ResolversParentTypes['GetDenimReportsResponse']> = ResolversObject<{
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  denimReports?: Resolver<Array<ResolversTypes['DenimReport']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   createUserAccount?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   deleteUserAccount?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
@@ -420,10 +447,11 @@ export type ProfileResolvers<ContextType = Context, ParentType extends Resolvers
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   getCurrentUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   getUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserArgs, 'accountId'>>;
-  getProfile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType, RequireFields<QueryGetProfileArgs, 'accountId'>>;
+  getProfile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, RequireFields<QueryGetProfileArgs, 'accountId'>>;
   getDenim?: Resolver<Maybe<ResolversTypes['Denim']>, ParentType, ContextType, RequireFields<QueryGetDenimArgs, 'id'>>;
   getDenims?: Resolver<Array<ResolversTypes['Denim']>, ParentType, ContextType, RequireFields<QueryGetDenimsArgs, 'accountId'>>;
-  getDenimReport?: Resolver<ResolversTypes['DenimReport'], ParentType, ContextType, RequireFields<QueryGetDenimReportArgs, 'id'>>;
+  getDenimReport?: Resolver<Maybe<ResolversTypes['DenimReport']>, ParentType, ContextType, RequireFields<QueryGetDenimReportArgs, 'id'>>;
+  getDenimReports?: Resolver<ResolversTypes['GetDenimReportsResponse'], ParentType, ContextType, RequireFields<QueryGetDenimReportsArgs, 'input'>>;
   isAvailableAccountId?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<QueryIsAvailableAccountIdArgs, 'value'>>;
 }>;
 
@@ -448,6 +476,7 @@ export type Resolvers<ContextType = Context> = ResolversObject<{
   Denim?: DenimResolvers<ContextType>;
   DenimReport?: DenimReportResolvers<ContextType>;
   DenimReportDetailImageUrl?: DenimReportDetailImageUrlResolvers<ContextType>;
+  GetDenimReportsResponse?: GetDenimReportsResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Profile?: ProfileResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

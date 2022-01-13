@@ -1,10 +1,11 @@
 type Query {
   getCurrentUser: User
   getUser(accountId: String!): User
-  getProfile(accountId: String!): Profile!
+  getProfile(accountId: String!): Profile
   getDenim(id: String!): Denim
   getDenims(accountId: String!): [Denim!]!
-  getDenimReport(id: String!): DenimReport!
+  getDenimReport(id: String!): DenimReport
+  getDenimReports(input: DenimReportsQueryInput!): GetDenimReportsResponse!
   isAvailableAccountId(value: String!): Boolean
 }
 
@@ -21,6 +22,11 @@ type Mutation {
   updateDenimReport(id: String!, input: DenimReportInput!): DenimReport!
   deleteDenimReport(id: String!): DenimReport!
   updateDenimReportSortOrder(input: updateDenimReportSortOrderInput!): Denim!
+}
+
+input DenimReportsQueryInput {
+  offset: Int!
+  perPage: Int!
 }
 
 input S3SignedUrlInput {
@@ -114,6 +120,11 @@ type DenimReportDetailImageUrl {
 type S3SignedUrlResponse {
   fileName: String!
   signedUrl: String!
+}
+
+type GetDenimReportsResponse {
+  totalCount: Int!
+  denimReports: [DenimReport!]!
 }
 
 scalar Date
